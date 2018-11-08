@@ -370,6 +370,10 @@ class Swagger(object):
                 operation['consumes'] = ['multipart/form-data']
             else:
                 operation['consumes'] = ['application/x-www-form-urlencoded', 'multipart/form-data']
+
+        if all_params and any(p['in'] == 'textHtml' for p in all_params):
+            operation['consumes'] = ['text/html']
+
         operation.update(self.vendor_fields(doc, method))
         return not_none(operation)
 
