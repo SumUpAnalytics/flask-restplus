@@ -19,6 +19,10 @@ PYPI_RST_FILTERS = (
     (r':doc:`(.+) <(.*)>`', r'`\1 <http://flask-restplus.readthedocs.org/en/stable\2.html>`_'),
     # replace issues references
     (r':issue:`(.+?)`', r'`#\1 <https://github.com/noirbizarre/flask-restplus/issues/\1>`_'),
+    # replace pr references
+    (r':pr:`(.+?)`', r'`#\1 <https://github.com/noirbizarre/flask-restplus/pull/\1>`_'),
+    # replace commit references
+    (r':commit:`(.+?)`', r'`#\1 <https://github.com/noirbizarre/flask-restplus/commit/\1>`_'),
     # Drop unrecognized currentmodule
     (r'\.\. currentmodule:: .*', ''),
 )
@@ -61,6 +65,7 @@ exec(compile(open('flask_restplus/__about__.py').read(), 'flask_restplus/__about
 install_requires = pip('install')
 doc_require = pip('doc')
 tests_require = pip('test')
+dev_require = tests_require + pip('develop')
 
 setup(
     name='flask-restplus',
@@ -74,9 +79,11 @@ setup(
     include_package_data=True,
     install_requires=install_requires,
     tests_require=tests_require,
+    dev_require=dev_require,
     extras_require={
         'test': tests_require,
         'doc': doc_require,
+        'dev': dev_require,
     },
     license='BSD-3-Clause',
     zip_safe=False,
@@ -95,6 +102,7 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: Implementation :: PyPy',
         'Topic :: Software Development :: Libraries :: Python Modules',
         'License :: OSI Approved :: BSD License',
